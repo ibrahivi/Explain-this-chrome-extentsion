@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="normal">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    :root {
+      --et-bg: #FFFFFF;
+      --et-surface: #F5F5F5;
+      --et-text: #333333;
+      --et-text-muted: #6E6E6E;
+      --et-border: #D0D0D0;
+      --et-header-bg: #5C0632;
+      --et-header-text: #FFFFFF;
+      --et-accent: #5C0632;
+      --et-accent-hover: #470725;
+      --et-card-bg: #FFFFFF;
+      --et-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+      --et-spinner-track: #E0E0E0;
+      --et-error-text: #8B3A3A;
+      --et-error-bg: #FDF6F6;
+      --et-error-border: #E8C8C8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: transparent;
+      overflow: hidden;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+    .et-card {
+      background: var(--et-card-bg);
+      border-radius: 6px;
+      box-shadow: var(--et-card-shadow);
+      overflow: hidden;
+      border: 1px solid var(--et-border);
+    }
+    .et-card[dir="rtl"] { direction: rtl; }
+    .et-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--et-header-bg);
+      color: var(--et-header-text);
+      padding: 10px 14px;
+      border-bottom: 2px solid var(--et-accent);
+    }
+    .et-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--et-header-text);
+    }
+    .et-close {
+      background: transparent;
+      border: none;
+      color: var(--et-header-text);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 2px;
+      opacity: 0.85;
+      border-radius: 3px;
+    }
+    .et-close:hover {
+      opacity: 1;
+      background: var(--et-accent-hover);
+      color: #FFFFFF;
+    }
+    .et-body {
+      padding: 14px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--et-text);
+      max-height: 240px;
+      overflow-y: auto;
+      background: var(--et-card-bg);
+    }
+    .et-loading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--et-text-muted);
+    }
+    .et-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--et-spinner-track);
+      border-top-color: var(--et-accent);
+      border-radius: 50%;
+      animation: et-spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes et-spin { to { transform: rotate(360deg); } }
+    .et-error {
+      color: var(--et-error-text);
+      background: var(--et-error-bg);
+      border: 1px solid var(--et-error-border);
+      border-radius: 4px;
+      padding: 10px 12px;
+    }
+    .et-text {
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--et-text);
+    }
+  </style>
+</head>
+<body>
+  <div class="et-card" id="card">
+    <div class="et-header">
+      <h2 class="et-title" id="title">Explanation</h2>
+      <button class="et-close" id="closeBtn" type="button" title="Close">×</button>
+    </div>
+    <div class="et-body" id="body"></div>
+  </div>
+  <script src="themes.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

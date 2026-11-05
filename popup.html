@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="normal">
+<head>
+  <meta charset="UTF-8" />
+  <title>Explain This</title>
+  <style>
+    /* Defaults = Normal theme (overwritten by themes.js on load) */
+    :root {
+      --et-bg: #FFFFFF;
+      --et-surface: #F5F5F5;
+      --et-text: #333333;
+      --et-text-muted: #6E6E6E;
+      --et-border: #D0D0D0;
+      --et-divider: #EBEBEB;
+      --et-header-bg: #5C0632;
+      --et-header-text: #FFFFFF;
+      --et-accent: #5C0632;
+      --et-accent-hover: #470725;
+      --et-on-accent: #FFFFFF;
+      --et-ok: #2E7D4F;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 320px;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+      color: var(--et-text);
+      background: var(--et-bg);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--et-header-bg);
+      color: var(--et-header-text);
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--et-accent);
+    }
+
+    .header-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 4px;
+      background: #22262c;
+      padding: 2px;
+    }
+
+    .header-text h1 {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--et-header-text);
+    }
+
+    .header-text p {
+      margin-top: 2px;
+      font-size: 11px;
+      opacity: 0.85;
+      font-weight: 400;
+      color: var(--et-header-text);
+    }
+
+    .section {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--et-divider);
+    }
+
+    .section:last-of-type {
+      border-bottom: none;
+    }
+
+    .label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--et-text-muted);
+      margin-bottom: 8px;
+    }
+
+    #apiKeyInput {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 12px;
+      border: 1px solid var(--et-border);
+      border-radius: 4px;
+      background: var(--et-surface);
+      color: var(--et-text);
+      outline: none;
+      margin-bottom: 8px;
+    }
+
+    #apiKeyInput:focus {
+      border-color: var(--et-accent);
+    }
+
+    .btn-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #saveBtn {
+      flex-shrink: 0;
+      background: var(--et-accent);
+      color: var(--et-on-accent);
+      border: none;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+
+    #saveBtn:hover {
+      background: var(--et-accent-hover);
+    }
+
+    .key-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--et-text-muted);
+    }
+
+    .key-status .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--et-border);
+      flex-shrink: 0;
+    }
+
+    .key-status.has-key {
+      color: var(--et-ok);
+    }
+
+    .key-status.has-key .dot {
+      background: var(--et-ok);
+    }
+
+    .pill-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .pill-btn {
+      flex: 1;
+      padding: 7px 4px;
+      font-size: 12px;
+      font-family: inherit;
+      border: 1px solid var(--et-border);
+      border-radius: 16px;
+      background: var(--et-bg);
+      color: var(--et-text-muted);
+      cursor: pointer;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+
+    .pill-btn:hover {
+      border-color: var(--et-accent);
+      color: var(--et-accent);
+    }
+
+    .pill-btn.active {
+      background: var(--et-accent);
+      border-color: var(--et-accent);
+      color: var(--et-on-accent);
+    }
+
+    .hint {
+      padding: 10px 16px 14px;
+      font-size: 11px;
+      color: var(--et-text-muted);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <!-- Drop your logo at icons/icon48.png (see README note in chat) -->
+    <img class="header-logo" src="icons/logo.png" alt="Explain This" width="32" height="32" />
+    <div class="header-text">
+      <h1>Explain This</h1>
+      <p>Select text → right-click → Explain</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <label class="label" for="apiKeyInput">Groq API Key</label>
+    <input
+      type="password"
+      id="apiKeyInput"
+      placeholder="gsk_…"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div class="btn-row">
+      <button type="button" id="saveBtn">Save</button>
+      <div id="keyStatus" class="key-status" aria-live="polite">
+        <span class="dot"></span>
+        <span class="text">No key set</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="label">Explanation language</span>
+    <div class="pill-group" role="group" aria-label="Language">
+      <button type="button" class="pill-btn lang-btn" data-lang="en">English</button>
+      <button type="button" class="pill-btn lang-btn" data-lang="tr">Türkçe</button>
+      <button type="button" class="pill-btn lang-btn" data-lang="ar">العربية</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="label">Theme</span>
+    <div class="pill-group" role="group" aria-label="Theme">
+      <button type="button" class="pill-btn theme-btn" data-theme="light">Light</button>
+      <button type="button" class="pill-btn theme-btn" data-theme="dark">Dark</button>
+      <button type="button" class="pill-btn theme-btn" data-theme="normal">Normal</button>
+    </div>
+  </section>
+
+  <p class="hint">Explanations appear as a card on the page you selected text from.</p>
+
+  <script src="themes.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
